@@ -1,0 +1,198 @@
+﻿<Window x:Class="PUB_WPF_MVVM.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PUB_WPF_MVVM" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="575" Width="915">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+
+
+            <ComboBox Name="comboBox" Width="900" ItemsSource="{Binding Beers}"
+                      >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged" >
+                        <i:InvokeCommandAction Command="{Binding SelectedCommand}" CommandParameter="{Binding ElementName=comboBox,Path=SelectedItem}">
+                            
+                        </i:InvokeCommandAction>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <ComboBoxItem>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="200" Height="150" 
+                                       Source="{Binding ImagePath}" Stretch="Fill" Margin="10"></Image>
+                                <TextBlock Text="{Binding Name}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontSize="30"
+                                           FontFamily="Verdana"
+                                           FontWeight="DemiBold" Margin="10">
+                                </TextBlock>
+                            </StackPanel>
+                        </ComboBoxItem>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+
+            </ComboBox>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border BorderBrush="Black" BorderThickness="0,0,1,0">
+                    <Canvas>
+                        <Rectangle Canvas.Left="60" Canvas.Top="20" Width="420" Height="300"
+                       RadiusX="10"
+                       RadiusY="10"
+                       Stroke="BlueViolet"
+                       StrokeDashArray="10">
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="{Binding ElementName=comboBox,Path=SelectedItem.ImagePath}"
+                                            Stretch="Fill">
+
+                                </ImageBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Label  Canvas.Top="325" Canvas.Left="100" FontSize="30"
+                               FontFamily="Comic Sans MS" FontStyle="Italic"
+                               >
+                            Beer Image
+                        </Label>
+
+                        <Label Name="myLabel" Canvas.Top="150" Canvas.Left="160" FontSize="30"
+                               FontFamily="Comic Sans MS" FontStyle="Italic"
+                               Foreground="Gray">
+                            No Image Yet
+                        </Label>
+
+                        <Button FontSize="30" Canvas.Top="420" Width="130" 
+                                Background="DarkOrange" Canvas.Left="15"
+                                Foreground="AliceBlue" FontWeight="DemiBold"
+                                Command="{Binding BuyCommand}">
+                            Buy
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="10">
+
+                                    </Setter>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+
+                        <Button FontSize="30" Canvas.Top="420" Width="130" 
+                                Background="DarkOrange" Canvas.Left="180"
+                                Foreground="AliceBlue" FontWeight="DemiBold">
+                            Reset
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="10">
+
+                                    </Setter>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+
+                        <Button FontSize="30" Canvas.Top="420" Width="200" 
+                                Background="DarkOrange" Canvas.Left="345"
+                                Foreground="AliceBlue" FontWeight="DemiBold"
+                                Command="{Binding ShowCommand}">
+                            Show History
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="10">
+
+                                    </Setter>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Canvas>
+                </Border>
+                <Grid Grid.Column="1">
+                    <Canvas>
+                        <Label FontSize="30" >
+                            Name:
+                        </Label>
+                        <TextBlock Canvas.Top="5" Canvas.Left="95" FontSize="30"
+                                   Text="{Binding ElementName=comboBox,Path=SelectedItem.Name}">
+
+                        </TextBlock>
+
+                        <Label FontSize="30" Canvas.Top="75" >
+                            Volume:
+                        </Label>
+                        <TextBlock Canvas.Top="80" Canvas.Left="120" FontSize="30"
+                                   Text="{Binding ElementName=comboBox,Path=SelectedItem.Volume}">
+
+                        </TextBlock>
+
+                        <Label FontSize="30" Canvas.Top="150" >
+                            Price:
+                        </Label>
+                        <TextBlock Canvas.Top="155" Canvas.Left="85" FontSize="30"
+                                   Text="{Binding ElementName=comboBox,Path=SelectedItem.Price}">
+
+                        </TextBlock>
+
+                        <Button Canvas.Top="250" Canvas.Left="10"
+                                FontSize="50" Width="100" Height="90"
+                                VerticalContentAlignment="Center"
+                                Background="OrangeRed" Foreground="AliceBlue"
+                                Command="{Binding PlusCommand}">
+                            +
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="30">
+
+                                    </Setter>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+
+                        <Button Canvas.Top="250" Canvas.Left="190"
+                                FontSize="50" Width="100" Height="90"
+                                VerticalContentAlignment="Center"
+                                Background="OrangeRed" Foreground="AliceBlue"
+                                Command="{Binding MinusCommand}">
+                            -
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="30">
+
+                                    </Setter>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+
+                        <TextBlock FontSize="48" Canvas.Top="260"
+                                   Canvas.Left="115" FontWeight="UltraBold"
+                                   Width="70" TextAlignment="Center"
+                                   Text="{Binding OrderCount,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        </TextBlock>
+
+                        <TextBlock Canvas.Top="365" Canvas.Left="15"
+                                   Width="150" Height="75"
+                                   FontSize="65"
+                                   TextAlignment="Right"
+                                   Text="{Binding TotalPrice}">
+                            
+                        </TextBlock>
+                        <Label FontSize="45" Canvas.Top="375" Canvas.Left="165" >$</Label>
+                    </Canvas>
+                </Grid>
+            </Grid>
+        </Grid>
+
+
+
+    </Grid>
+</Window>
