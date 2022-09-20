@@ -18,11 +18,11 @@ namespace PUB_WPF_MVVM.ViewModels
 {
     public class AppViewModel : BaseViewModel
     {
-
-        public List<string> OrderList { get; set; } = new List<string>();
+        public ComboBox ComboBox { get; set; }
 
         private double price;
 
+        public List<BeerPurchase> BeerPurchases { get; set; } = new List<BeerPurchase>();
         public double TotalPrice
         {
             get { return price; }
@@ -50,6 +50,8 @@ namespace PUB_WPF_MVVM.ViewModels
         public RelayCommand BuyCommand { get; set; }
 
         public RelayCommand ShowCommand { get; set; }
+
+        public RelayCommand ResetCommand { get; set; }
 
         private Beer beer;
 
@@ -111,12 +113,15 @@ Total Price: {TotalPrice} $
 Date:{DateTime.Now}", "Purchase Details", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                         {
                             PDFWriter.GenerateBeerPDF(Beer, TotalPrice, OrderCount);
-                            string purchase_details = $@"Brand Name : {Beer.Name}
-Count : {OrderCount.ToString()}
-Date : {DateTime.Now}
-Total Price : {TotalPrice.ToString()}$
-";
-                            OrderList.Add(purchase_details);
+                            BeerPurchases.Add(new BeerPurchase()
+                            {
+                                BeerName = Beer.Name,
+                                BeerPath = Beer.ImagePath,
+                                BeerVolume=Beer.Volume,
+                                Date = DateTime.Now,
+                                OrderCount = $"Count : {OrderCount}",
+                                total_price = TotalPrice.ToString()+"$"
+                            });
                             TotalPrice = 0;
                             Beer = null;
                             OrderCount = 0;
@@ -133,13 +138,21 @@ Total Price : {TotalPrice.ToString()}$
             ShowCommand = new RelayCommand(c =>
             {
                 DisplayViewModel dVM = new DisplayViewModel();
-                dVM.DisplayList = OrderList;
-
+                dVM.PurchaseDetails = BeerPurchases;
                 DisplayWindow dP = new DisplayWindow();
-
                 dP.DataContext = dVM;
 
                 dP.Show();
+
+            });
+
+
+            ResetCommand = new RelayCommand(c =>
+            {
+                ComboBox.SelectedItem = null;
+                Label.Visibility = Visibility.Visible;
+                TotalPrice = 0;
+                OrderCount = 0;
 
             });
 

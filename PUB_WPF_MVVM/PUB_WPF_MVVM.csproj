@@ -107,6 +107,7 @@
   <ItemGroup>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Helpers\PDFWriter.cs" />
+    <Compile Include="Models\BeerPurchase.cs" />
     <Compile Include="Repositories\FakeBeerRepo.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />

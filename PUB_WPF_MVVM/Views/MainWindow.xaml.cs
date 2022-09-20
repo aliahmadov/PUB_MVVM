@@ -26,6 +26,7 @@ namespace PUB_WPF_MVVM
             InitializeComponent();
             var appviewModel = new AppViewModel();
             appviewModel.Label = myLabel;
+            appviewModel.ComboBox = comboBox;
             this.DataContext = appviewModel;
         }
     }

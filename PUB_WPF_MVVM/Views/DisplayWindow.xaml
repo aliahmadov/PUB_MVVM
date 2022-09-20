@@ -6,7 +6,23 @@
         xmlns:local="clr-namespace:PUB_WPF_MVVM.Views"
         mc:Ignorable="d"
         Title="DisplayWindow" Height="450" Width="800">
-    <ListBox Name="listBox" FontSize="25" ItemsSource="{Binding DisplayList}">
-
+    <ListBox Name="listBox" FontSize="25" ItemsSource="{Binding PurchaseDetails}">
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <Grid Width="300" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Height="100" Width="100" Source="{Binding BeerPath}" Stretch="Fill" ></Image>
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Margin="5" Width="400" Text="{Binding BeerName}" ></TextBlock>
+                        <TextBlock Margin="5" Width="400" Text="{Binding BeerVolume }" ></TextBlock>
+                        <TextBlock Margin="5" Width="400" Text="{Binding OrderCount}" ></TextBlock>
+                        <TextBlock Margin="5" Width="400" Text="{Binding Date}" ></TextBlock>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
     </ListBox>
 </Window>

@@ -10,6 +10,7 @@ namespace PUB_WPF_MVVM.ViewModels
 {
     public class DisplayViewModel:BaseViewModel
     {
-        public List<string> DisplayList { get; set; }
+        public List<BeerPurchase> PurchaseDetails { get; set; }
+
     }
 }

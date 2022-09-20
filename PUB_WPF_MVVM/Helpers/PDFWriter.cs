@@ -35,15 +35,17 @@ namespace PUB_WPF_MVVM.Helpers
             string beerPrice = $"Price : {beer.Price}";
             string orderCount = $"Order Count : {count.ToString()}";
             string total_Price = $"Total Price : {total_price.ToString()}$";
+            string time = $"Date : {DateTime.Now.ToString()}";
 
             gfx.DrawString(file_guid.ToString(), font3, XBrushes.DarkOrange, new XPoint(100, 50));
-            gfx.DrawString(beerName, font1, XBrushes.Black, new XPoint(100, 90));
-            gfx.DrawString(beerPrice, font1, XBrushes.Black, new XPoint(100, 120));
-            gfx.DrawString(orderCount, font1, XBrushes.Black, new XPoint(100, 150));
-            gfx.DrawString(total_Price, font1, XBrushes.Black, new XPoint(100, 180));
+            gfx.DrawString(time, font1, XBrushes.Red, new XPoint(100, 70));
+            gfx.DrawString(beerName, font1, XBrushes.Black, new XPoint(100, 120));
+            gfx.DrawString(beerPrice, font1, XBrushes.Black, new XPoint(100, 150));
+            gfx.DrawString(orderCount, font1, XBrushes.Black, new XPoint(100, 180));
+            gfx.DrawString(total_Price, font1, XBrushes.Black, new XPoint(100, 210));
 
             XImage image = XImage.FromFile($@"C:\Users\eliah\source\repos\PUB_WPF_MVVM\PUB_WPF_MVVM{beer.ImagePath}");
-            gfx.DrawImage(image,new XPoint(40,220));
+            gfx.DrawImage(image,new XPoint(20,250));
 
             string filePath = $@"C:\Users\eliah\Desktop\{beer.Name.ToUpper()}_Buy_Details{Number++.ToString()}.pdf";
             document.Save(filePath);

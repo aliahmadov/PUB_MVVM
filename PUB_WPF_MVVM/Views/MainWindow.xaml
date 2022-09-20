@@ -91,7 +91,8 @@
 
                         <Button FontSize="30" Canvas.Top="420" Width="130" 
                                 Background="DarkOrange" Canvas.Left="180"
-                                Foreground="AliceBlue" FontWeight="DemiBold">
+                                Foreground="AliceBlue" FontWeight="DemiBold"
+                                Command="{Binding ResetCommand}">
                             Reset
                             <Button.Resources>
                                 <Style TargetType="{x:Type Border}">
